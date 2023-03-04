@@ -31,7 +31,7 @@ cron.schedule('0 10 * * 1', async () => {
 
         const points = calculatePointsService.calculatePoints(postition)
         const user = await User.findOne({_id: recentBets[i].placedBy})
-        const newPoints = user.points + points
+        const newPoints = parseInt(user.points) + parseInt(points)
         await User.updateOne(
             {_id: recentBets[i].placedBy},
             {$set: {points: newPoints}}
