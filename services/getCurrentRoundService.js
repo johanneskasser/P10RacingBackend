@@ -41,12 +41,15 @@ module.exports = {
 
     async getCurrentRound(currentDate) {
         const oneWeekMs = 7 * 24 * 60 * 60 * 1000;
+        //console.log(currentDate)
         let nextRound = null;
         const races = await f1Race.find()
         races.forEach((race) => {
             const raceDate = new Date(race.Date)
+            //console.log(raceDate)
 
             const timeDiff = raceDate.getTime() - currentDate.getTime();
+            //console.log(timeDiff)
             if(timeDiff <= oneWeekMs && timeDiff >= 0) {
                 const round = race.roundNr
 
@@ -55,7 +58,10 @@ module.exports = {
                 }
             }
         })
-        //console.log("Round NR: ", nextRound)
+        if(nextRound === null) {
+            return -1
+        }
+        console.log("Round NR: ", nextRound)
         return nextRound;
     }
 }

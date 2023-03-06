@@ -4,6 +4,7 @@ const userHandler = require('../services/userHandler')
 const bet = require('../services/bet')
 const f1Driver= require('../services/f1DriverService')
 const cronJobTest = require('../services/testcronjob')
+const roundService = require('../services/roundService')
 
 router.post("/register", auth.register)
 
@@ -18,6 +19,8 @@ router.put("/addFriend", userHandler.addFriend)
 router.get('/searchByUserName', userHandler.findByUserName)
 
 router.post('/placeBet', bet.placeBet)
+
+router.get('/getCurrentRound', roundService.returnCurrentRoundAndRaceName)
 
 //router.get("/test", cronJobTest.triggerCronJob)
 

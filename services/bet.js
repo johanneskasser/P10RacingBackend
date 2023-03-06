@@ -26,22 +26,29 @@ module.exports = {
                 const roundNr = await getCurrentRoundService.getCurrentRound(currentTime)
                 //console.log(currentTime)
                 //const races = await getCurrentRoundService.getAllRacesForYear()
-                const duplicate = await bet.findOne({placedBy: UID, roundNr: roundNr});
-                if(duplicate) {
+                if(roundNr === -1) {
                     res.status(403).send({
-                        message: "Bet for this round already set!"
+                        message: "There is no upcoming Race!"
                     })
                 } else {
-                    await new bet({
-                        placedBy: UID,
-                        p10: p10,
-                        firstDNF: firstDNF,
-                        roundNr: roundNr
-                    }).save()
-                    res.status(200).send({
-                        message: "Bet set successfully!"
-                    })
+                    const duplicate = await bet.findOne({placedBy: UID, roundNr: roundNr});
+                    if(duplicate) {
+                        res.status(403).send({
+                            message: "Bet for this round already set!"
+                        })
+                    } else {
+                        await new bet({
+                            placedBy: UID,
+                            p10: p10,
+                            firstDNF: firstDNF,
+                            roundNr: roundNr
+                        }).save()
+                        res.status(200).send({
+                            message: "Bet set successfully!"
+                        })
+                    }
                 }
+
             }
         }
     }
