@@ -22,6 +22,8 @@ router.post('/placeBet', bet.placeBet)
 
 router.get('/getCurrentRound', roundService.returnCurrentRoundAndRaceName)
 
+router.get('/getFriends', userHandler.getFriends)
+
 //router.get("/test", cronJobTest.triggerCronJob)
 
 module.exports = router;

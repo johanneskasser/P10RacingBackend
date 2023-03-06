@@ -72,5 +72,45 @@ module.exports = {
                 message: "User not Found!"
             })
         }
+    },
+    async getFriends(req,res) {
+        let friends = []
+        if(req.query._id) {
+            let reqUser = null
+            try {
+                reqUser = await User.findOne({_id: req.query._id})
+            } catch (e) {
+                res.status(404).send({
+                    message: "User was not found"
+                })
+                return
+            }
+            if(reqUser) {
+                if(reqUser.friends.length !== 0) {
+                    for (let i = 0; i < reqUser.friends.length; i++) {
+                        try {
+                            const user = await User.findOne({_id: reqUser.friends[i]})
+                            friends.push({username: user.username, points: user.points})
+                        } catch (e) {
+                            res.status(500).send({
+                                message: "Internal Server Error! Please contact Sysadmin!"
+                            })
+                            return
+                        }
+                    }
+                    res.status(200).send(friends)
+                } else {
+                    res.status(404).send({
+                        message: "No Friends found!"
+                    })
+                }
+            } else {
+                res.status(403).send({
+                    message: "User was not found!"
+                })
+            }
+
+
+        }
     }
 }
