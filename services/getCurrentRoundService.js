@@ -63,5 +63,24 @@ module.exports = {
         }
         console.log("Round NR: ", nextRound)
         return nextRound;
+    },
+
+    async getNextRaceDate(currentDate) {
+        //console.log(currentDate)
+        let nextRaceDate = null;
+        const races = await f1Race.find();
+        try {
+            races.forEach((race) => {
+                const raceDate = new Date(race.Date);
+                //console.log(raceDate)
+                if(raceDate > currentDate) {
+                    nextRaceDate = raceDate
+                    throw new Error("Found Element!")
+                }
+            });
+        } catch (e) {
+            console.log("Next race date:", nextRaceDate);
+        }
+        return nextRaceDate;
     }
 }

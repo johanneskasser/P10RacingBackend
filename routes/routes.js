@@ -5,6 +5,7 @@ const bet = require('../services/bet')
 const f1Driver= require('../services/f1DriverService')
 const cronJobTest = require('../services/testcronjob')
 const roundService = require('../services/roundService')
+const {protectedRoute} = require('../middleware/routeProtector')
 
 router.post("/register", auth.register)
 
@@ -12,17 +13,17 @@ router.post("/login", auth.login)
 
 router.get("/user", auth.user)
 
-router.post("/logout", auth.logout)
+router.post("/logout", protectedRoute, auth.logout)
 
-router.put("/addFriend", userHandler.addFriend)
+router.put("/addFriend", protectedRoute, userHandler.addFriend)
 
-router.get('/searchByUserName', userHandler.findByUserName)
+router.get('/searchByUserName', protectedRoute, userHandler.findByUserName)
 
-router.post('/placeBet', bet.placeBet)
+router.post('/placeBet', protectedRoute, bet.placeBet)
 
-router.get('/getCurrentRound', roundService.returnCurrentRoundAndRaceName)
+router.get('/getCurrentRound', protectedRoute, roundService.returnCurrentRoundAndRaceName)
 
-router.get('/getFriends', userHandler.getFriends)
+router.get('/getFriends', protectedRoute, userHandler.getFriends)
 
 //router.get("/test", cronJobTest.triggerCronJob)
 

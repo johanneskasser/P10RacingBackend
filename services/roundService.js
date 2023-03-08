@@ -5,12 +5,14 @@ const f1Race = require('../models/F1Race')
 module.exports = {
     async returnCurrentRoundAndRaceName(req, res) {
         const current = new Date()
-        //console.log(current)
+        console.log(current)
         const currentRound = await currentRoundService.getCurrentRound(current)
         //console.log(currentRound)
         if(currentRound === -1) {
-            res.status(403).send({
-                message: "No upcoming Races within one Week!"
+            const nextRaceDate = await currentRoundService.getNextRaceDate(current)
+            res.status(404).send({
+                message: "No upcoming Races within one Week!",
+                nextRaceDate: nextRaceDate
             })
         } else {
             const race = await f1Race.findOne({roundNr: currentRound});
