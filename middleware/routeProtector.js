@@ -4,6 +4,7 @@ module.exports = {
     async protectedRoute(req, res, next) {
         try {
             const cookie = req.cookies['jwt']
+            console.log(req.cookies)
 
             if(cookie) {
                 const claims = jwt.verify(cookie, process.env.USER_SECRET_TOKEN)
