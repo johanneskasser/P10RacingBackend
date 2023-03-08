@@ -7,6 +7,8 @@ const cronJobTest = require('../services/testcronjob')
 const roundService = require('../services/roundService')
 const {protectedRoute} = require('../middleware/routeProtector')
 
+router.get('/', auth.upMessage)
+
 router.post("/register", auth.register)
 
 router.post("/login", auth.login)

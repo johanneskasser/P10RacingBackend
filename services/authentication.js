@@ -85,5 +85,10 @@ module.exports = {
         res.send({
             message: "Success"
         })
+    },
+
+    async upMessage (req, res) {
+        console.log("HERE")
+        res.status(200).send("Server is UP")
     }
 }
