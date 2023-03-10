@@ -51,6 +51,8 @@ module.exports = {
         res.cookie('jwt', token, {
             httpOnly: true,
             secure: true,
+            domain: "p10racingfront.herokuapp.com",
+            path: '/',
             maxAge: 24 * 60 * 60 * 1000 //1 Day
         })
 
