@@ -13,7 +13,7 @@ app.use(cookieparser())
 
 app.use(cors({
     credentials: true,
-    origin: ['http://localhost:8080']
+    origin: ['https://p10racingfront.herokuapp.com']
 }))
 
 app.use('/api', routes)
