@@ -3,6 +3,7 @@ const User = require("../models/user");
 module.exports = {
     async protectedRoute(req, res, next) {
         try {
+            console.log(req.cookies)
             const cookie = req.cookies['jwt']
             console.log(req.cookies)
 
