@@ -51,7 +51,8 @@ module.exports = {
         res.cookie('jwt', token, {
             httpOnly: true,
             domain: process.env.Domain,
-            path: '/dashboard',
+            path: '/',
+            sameSite: "none",
             maxAge: 24 * 60 * 60 * 1000 //1 Day
         })
 
