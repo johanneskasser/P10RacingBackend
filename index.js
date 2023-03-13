@@ -13,7 +13,7 @@ app.use(cookieparser())
 
 app.use(cors({
     credentials: true,
-    origin: [process.env.FrontendURL]
+    origin: ['http://localhost:8080', 'https://www.p10racing.net']
 }))
 
 app.use('/api', routes)

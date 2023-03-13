@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+require('dotenv/config')
 
 module.exports = {
     async register (req, res) {
@@ -52,8 +53,7 @@ module.exports = {
             httpOnly: true,
             domain: process.env.Domain,
             path: '/',
-            sameSite: "none",
-            secure: true,
+            secure: false,
             maxAge: 24 * 60 * 60 * 1000 //1 Day
         })
 
