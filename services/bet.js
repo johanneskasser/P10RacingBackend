@@ -33,8 +33,12 @@ module.exports = {
                 } else {
                     const duplicate = await bet.findOne({placedBy: UID, roundNr: roundNr});
                     if(duplicate) {
-                        res.status(403).send({
-                            message: "Bet for this round already set!"
+                        await bet.findOneAndUpdate(
+                            {_id: duplicate._id},
+                            {p10: p10, firstDNF: firstDNF}
+                            )
+                        res.status(200).send({
+                            message: "Bet updated Successfully!"
                         })
                     } else {
                         await new bet({
@@ -50,6 +54,25 @@ module.exports = {
                 }
 
             }
+        }
+    },
+    async getBets(req, res) {
+        const uid = req.query.uid
+        let betDrivers = []
+        const roundNr = await getCurrentRoundService.getCurrentRound(new Date())
+        const setBet = await bet.findOne({placedBy: uid, roundNr: roundNr})
+        if(setBet) {
+            const p10 = await f1Driver.findOne({code: setBet.p10})
+            const firstDNF = await f1Driver.findOne({code: setBet.firstDNF})
+            if(p10 && firstDNF) {
+                betDrivers.push({p10: p10})
+                betDrivers.push({firstDNF: firstDNF})
+                res.status(200).send(betDrivers)
+            } else {
+                res.status(500).send()
+            }
+        } else {
+            res.status(404).send()
         }
     }
 }

@@ -27,6 +27,8 @@ router.get('/getCurrentRound', protectedRoute, roundService.returnCurrentRoundAn
 
 router.get('/getFriends', protectedRoute, userHandler.getFriends)
 
+router.get('/getBets', protectedRoute, bet.getBets)
+
 //router.get("/test", cronJobTest.triggerCronJob)
 
 module.exports = router;
