@@ -19,6 +19,8 @@ app.use(express_session({
     cookie: {
         httpOnly: true,
         secure: true,
+        sameSite: 'none',
+        domain: process.env.Domain,
         maxAge: 24 * 60 * 60 * 1000
     }
 }))
