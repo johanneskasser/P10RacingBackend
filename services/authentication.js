@@ -48,14 +48,11 @@ module.exports = {
             })
         }
 
-        const token = jwt.sign({_id: user._id}, process.env.USER_SECRET_TOKEN)
-        res.cookie('jwt', token, {
-            httpOnly: true,
-            domain: process.env.Domain,
-            path: '/',
-            secure: false,
-            maxAge: 24 * 60 * 60 * 1000 //1 Day
-        })
+        req.session.userId = user._id.toString()
+
+        req.session.save()
+
+        console.log(req.session)
 
         res.status(200).send(user)
     },

@@ -1,4 +1,5 @@
 const express = require('express')
+const express_session = require('express-session')
 const routes = require('./routes/routes')
 const mongoose = require('mongoose')
 const cors = require('cors')
@@ -11,9 +12,20 @@ app.use(express.json())
 
 app.use(cookieparser())
 
+app.use(express_session({
+    secret: process.env.USER_SECRET_TOKEN,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        secure: true,
+        maxAge: 24 * 60 * 60 * 1000
+    }
+}))
+
 app.use(cors({
     credentials: true,
-    origin: ['http://localhost:8080', 'https://www.p10racing.net']
+    origin: ['http://localhost:8080', 'https://www.p10racing.net', 'http://10.0.0.8:8080']
 }))
 
 app.use('/api', routes)
@@ -27,4 +39,7 @@ mongoose.connection.once("open", () => console.log("Connected to DB!")).on("Erro
     console.log("Error while connecting to DB: ", error);
 })
 
-app.listen(process.env.PORT || 8000)
+app.listen(process.env.PORT || 8000, () => {
+    console.log("Server Running at port " + (process.env.PORT || "8000"))
+
+})
