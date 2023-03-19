@@ -52,13 +52,11 @@ module.exports = {
 
         req.session.save()
 
-        console.log(req.session)
-
         res.status(200).send(user)
     },
     async user (req, res) {
         try {
-            const cookie = req.cookies['jwt']
+            //const cookie = req.cookies['jwt']
 
             console.log(cookie)
 
@@ -82,7 +80,7 @@ module.exports = {
         }
     },
     async logout(req, res) {
-        res.cookie('jwt', '', {maxAge: 0})
+        //res.cookie('jwt', '', {maxAge: 0})
         res.send({
             message: "Success"
         })

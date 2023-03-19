@@ -7,6 +7,11 @@ const cronJobTest = require('../services/testcronjob')
 const roundService = require('../services/roundService')
 const {protectedRoute} = require('../middleware/routeProtector')
 
+/**
+ * Routes with Route Protection middleware
+ */
+
+/*
 router.get('/', auth.upMessage)
 
 router.post("/register", auth.register)
@@ -30,5 +35,31 @@ router.get('/getFriends', protectedRoute, userHandler.getFriends)
 router.get('/getBets', protectedRoute, bet.getBets)
 
 //router.get("/test", cronJobTest.triggerCronJob)
+*/
+
+/**
+ * Routes without route protection middleware
+ */
+router.get('/', auth.upMessage)
+
+router.post("/register", auth.register)
+
+router.post("/login", auth.login)
+
+router.get("/user", auth.user)
+
+router.post("/logout", auth.logout)
+
+router.put("/addFriend",  userHandler.addFriend)
+
+router.get('/searchByUserName', userHandler.findByUserName)
+
+router.post('/placeBet', bet.placeBet)
+
+router.get('/getCurrentRound', roundService.returnCurrentRoundAndRaceName)
+
+router.get('/getFriends', userHandler.getFriends)
+
+router.get('/getBets', bet.getBets)
 
 module.exports = router;
