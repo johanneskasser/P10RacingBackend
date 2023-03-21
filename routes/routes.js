@@ -62,4 +62,6 @@ router.get('/getFriends', userHandler.getFriends)
 
 router.get('/getBets', bet.getBets)
 
+//router.get("/test", cronJobTest.triggerCronJob)
+
 module.exports = router;

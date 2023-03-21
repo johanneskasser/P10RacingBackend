@@ -4,7 +4,9 @@ const routes = require('./routes/routes')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const cookieparser = require('cookie-parser')
+const cron = require('node-cron')
 require('dotenv/config')
+const cronJobLogic = require("./services/cronJobLogic");
 
 app = express()
 
@@ -45,3 +47,9 @@ app.listen(process.env.PORT || 8000, () => {
     console.log("Server Running at port " + (process.env.PORT || "8000"))
 
 })
+
+cron.schedule('0 10 * * 1', async () => {
+    await cronJobLogic.calculatePoints()
+}, {
+    timezone: 'CET'
+});
